@@ -17,7 +17,7 @@ namespace InspireCoders.Domain
         public string Code { get; set; }
 
         public DateTime DateCreated { get; set; }
-
+        
         public DateTime DateModified { get; set; }
 
         // client will only get a list of facilitator IDs, it's better to just stringify the  list of seleccted IDs

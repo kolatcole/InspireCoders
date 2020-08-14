@@ -26,6 +26,8 @@ namespace InspireCoders.Infrastructure
 
         public DbSet<Course> Courses { get; set; }
 
-        public DbSet<CourseFacilitator> CourseFacilitators { get; set; }
+        public DbSet<StudentForum> StudentForums { get; set; }
+
+
     }
 }

@@ -1,15 +1,17 @@
 ﻿using InspireCoders.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InspireCoders.Infrastructure
 {
-    public class CourseFacRepo : IRepo<CourseFacilitator>
+    public class StudentForumRepo : IRepo<StudentForum>
     {
         private readonly TContext _context;
-        public CourseFacRepo(TContext context)
+        public StudentForumRepo(TContext context)
         {
             _context = context;
         }
@@ -24,34 +26,41 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<List<CourseFacilitator>> getAllAsync()
+        public Task<List<StudentForum>> getAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<CourseFacilitator>> getAllByIDAsync(int ID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<CourseFacilitator> getAsync(int ID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<int> insertAsync(CourseFacilitator data)
+        public async Task<List<StudentForum>> getAllByIDAsync(int ID)
         {
             try
             {
-                var courseFac = new CourseFacilitator
+                return await _context.StudentForums.Where(x=>x.StudentID==ID).ToListAsync();
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public Task<StudentForum> getAsync(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<int> insertAsync(StudentForum data)
+        {
+            try
+            {
+                var forum = new StudentForum
                 {
-                    CourseID = data.CourseID,
-                    FacilitatorID = data.FacilitatorID
+                    StudentID = data.StudentID,
+                    ForumID = data.ForumID
                 };
 
-                await _context.CourseFacilitators.AddAsync(courseFac);
+                await _context.StudentForums.AddAsync(forum);
                 await _context.SaveChangesAsync();
-                return courseFac.ID;
+                return forum.ID;
 
             }
             catch (Exception ex)
@@ -60,24 +69,24 @@ namespace InspireCoders.Infrastructure
             }
         }
 
-        public async Task<bool> insertListAsync(List<CourseFacilitator> data)
+        public async Task<bool> insertListAsync(List<StudentForum> data)
         {
             try
             {
 
-               _context.CourseFacilitators.AddRange(data);
+                _context.StudentForums.AddRange(data);
                 await _context.SaveChangesAsync();
                 return true;
 
             }
-            catch 
+            catch
             {
                 return false;
             }
         }
 
 
-        public Task updateAsync(CourseFacilitator data)
+        public Task updateAsync(StudentForum data)
         {
             throw new NotImplementedException();
         }

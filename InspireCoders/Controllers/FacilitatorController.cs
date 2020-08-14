@@ -10,24 +10,24 @@ namespace InspireCoders.Presentation.Core.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InstructorController : ControllerBase
+    public class FacilitatorController : ControllerBase
     {
         private readonly IRepo<Facilitator> _repo;
 
-        public InstructorController(IRepo<Facilitator> repo)
+        public FacilitatorController(IRepo<Facilitator> repo)
         {
             _repo = repo;
         }
 
-        [HttpPost("SaveInstructor")]
-        public async Task<IActionResult> SaveInstructor(Facilitator data)
+        [HttpPost]
+        public async Task<IActionResult> Post(Facilitator data)
         {
             var result = await _repo.insertAsync(data);
             return Ok(result);
         }
 
-        [HttpGet("GetAllInstructors")]
-        public async Task<IActionResult> GetAllInstructors()
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
             var result = await _repo.getAllAsync();
             return Ok(result);

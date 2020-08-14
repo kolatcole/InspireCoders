@@ -59,9 +59,19 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<Forum> getAsync(int ID)
+        public async Task<Forum> getAsync(int ID)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                return await _context.Forums.FindAsync(ID);
+
+            }
+
+            catch
+            {
+                return null;
+            }
         }
 
         public async Task<int> insertAsync(Forum data)
@@ -71,7 +81,12 @@ namespace InspireCoders.Infrastructure
                 var Forum = new Forum
                 {
                     Code=data.Code,
-                    Name=data.Name
+                    Name=data.Name,
+                    DateCreated=DateTime.Now,
+                    Description=data.Description,
+                    Maximum=data.Maximum,
+                    CourseID=data.CourseID,
+                    FacilitatorID=data.FacilitatorID
                 };
 
                 await _context.Forums.AddAsync(Forum);
@@ -99,7 +114,12 @@ namespace InspireCoders.Infrastructure
                 {
                     if (data.Code != null) forum.Code = data.Code;
                     if (data.Name != null) forum.Name = data.Name;
-                   // if (data.Title != null) forum.Title = data.Title;
+                    if (data.StudentIDs != null) forum.StudentIDs = data.StudentIDs;
+                    if (data.Maximum > 0) forum.Maximum = data.Maximum;
+                    if (data.CourseID > 0) forum.CourseID = data.CourseID;
+                    if (data.FacilitatorID > 0) forum.FacilitatorID = data.FacilitatorID;
+                    forum.DateModified = DateTime.Now;
+                    if (data.Description != null) forum.Description = data.Description;
 
                     _context.Forums.Update(forum);
                     await _context.SaveChangesAsync();

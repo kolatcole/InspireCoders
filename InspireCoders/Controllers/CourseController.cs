@@ -29,7 +29,19 @@ namespace InspireCoders.Presentation
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var result = await _repo.getAllAsync();
+            var result = await _service.getAllCourses();
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        [HttpGet("GetByCourse/{code}")]
+        public async Task<IActionResult> GetByCourse(string code)
+        {
+            var result = await _service.getCourseByCode(code);
             return Ok(result);
         }
 
@@ -49,7 +61,7 @@ namespace InspireCoders.Presentation
         [HttpDelete]
         public async Task<IActionResult> Delete(int ID)
         {
-             await _repo.deleteAsync(ID);
+            // await _repo.deleteAsync(ID);
             return Ok();
 
         }

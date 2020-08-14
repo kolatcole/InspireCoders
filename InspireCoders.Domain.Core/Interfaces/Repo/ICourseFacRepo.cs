@@ -7,7 +7,7 @@ namespace InspireCoders.Domain
 {
     public interface ICourseFacRepo
     {
-        Task<int> SaveCourseFacilitator(CourseFacilitator data);
+        Task<int> SaveCourseFacilitator(StudentForum data);
 
     }
 }

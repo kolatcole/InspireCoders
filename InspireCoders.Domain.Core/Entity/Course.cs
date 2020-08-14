@@ -20,7 +20,10 @@ namespace InspireCoders.Domain
         
         public DateTime DateModified { get; set; }
 
-        // client will only get a list of facilitator IDs, it's better to just stringify the  list of seleccted IDs
+        // to show facilitators related to this particular course gottten with the facilitator IDs
         public List<Facilitator> Facilitators { get; set; }
+        
+        // all selected facilitatorID are stringified separated by comma from the client
+        public string FacilitatorIDs { get; set; }
     }
 } 

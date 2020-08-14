@@ -7,8 +7,13 @@ namespace InspireCoders.Domain
 {
     public interface ICourseService
     {
-        Task<SaveResponse> SaveCourseWithFacilitator(Course data); 
+        Task<SaveResponse> SaveCourseWithFacilitator(Course data);
 
-        Task<>
+        Task<Course> getCourseByCode(string code);
+
+        Task<List<Course>> getAllCourses();
+
+        Task<Course> getCourseByID(int ID);
+
     }
 }

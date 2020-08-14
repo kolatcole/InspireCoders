@@ -55,6 +55,12 @@ namespace InspireCoders
             services.AddScoped<IRepo<Student>, StudentRepo>();
             services.AddScoped<IRepo<Applicant>, ApplicantRepo>();
             services.AddScoped<IRepo<Forum>, ForumRepo>();
+            services.AddScoped<ICourseRepo, CourseRepo>();
+            services.AddScoped<IRepo<StudentForum>, StudentForumRepo>();
+
+
+            services.AddTransient<ICourseService, CourseService>();
+            services.AddTransient<IForumService, ForumService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

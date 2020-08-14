@@ -4,14 +4,16 @@ using InspireCoders.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InspireCoders.Presentation.Core.Migrations
 {
     [DbContext(typeof(TContext))]
-    partial class TContextModelSnapshot : ModelSnapshot
+    [Migration("20200814053404_3rd")]
+    partial class _3rd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,6 +99,24 @@ namespace InspireCoders.Presentation.Core.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("InspireCoders.Domain.CourseFacilitator", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FacilitatorID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("CourseFacilitators");
                 });
 
             modelBuilder.Entity("InspireCoders.Domain.Facilitator", b =>
@@ -212,24 +232,6 @@ namespace InspireCoders.Presentation.Core.Migrations
                     b.HasIndex("ForumID");
 
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("InspireCoders.Domain.StudentForum", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ForumID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StudentID")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("StudentForums");
                 });
 
             modelBuilder.Entity("InspireCoders.Domain.Facilitator", b =>

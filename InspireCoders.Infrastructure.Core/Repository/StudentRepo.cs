@@ -49,9 +49,19 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task<Student> getAsync(int ID)
+        public async Task<Student> getAsync(int ID)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                return await _context.Students.FindAsync(ID);
+
+            }
+
+            catch
+            {
+                return null;
+            }
         }
 
         public async Task<int> insertAsync(Student data)

@@ -4,12 +4,12 @@ using System.Text;
 
 namespace InspireCoders.Domain
 {
-    public class CourseFacilitator
+    public class StudentForum
     {
         public int ID { get; set; }
 
-        public int CourseID { get; set; }
+        public int StudentID { get; set; }
 
-        public int FacilitatorID { get; set; }
+        public int ForumID { get; set; }
     }
 }

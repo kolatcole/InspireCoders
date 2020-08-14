@@ -3,12 +3,13 @@ using InspireCoders.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace InspireCoders.Infrastructure
 {
-    public class CourseRepo : IRepo<Course>
+    public class CourseRepo : ICourseRepo
     {
 
         private readonly TContext _context;
@@ -19,15 +20,6 @@ namespace InspireCoders.Infrastructure
         }
 
 
-        public Task deleteAllByIDAsync(int ID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task deleteAsync(int ID)
-        {
-            throw new NotImplementedException();
-        }
 
         public async Task<List<Course>> getAllAsync()
         {
@@ -45,14 +37,28 @@ namespace InspireCoders.Infrastructure
             }
         }
 
-        public Task<List<Course>> getAllByIDAsync(int ID)
+        public async Task<Course> getCourseByCodeAsync(string code)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Courses.FirstOrDefaultAsync(x => x.Code == code);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
-        public Task<Course> getAsync(int ID)
+        public async Task<Course> getCourseByIDAsync(int ID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _context.Courses.FirstOrDefaultAsync(x => x.ID == ID);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public async Task<int> insertAsync(Course data)
@@ -64,7 +70,8 @@ namespace InspireCoders.Infrastructure
                    DateCreated=DateTime.Now,
                    Description=data.Description,
                    Code=data.Code,
-                   Name=data.Name
+                   Name=data.Name,
+                   FacilitatorIDs=data.FacilitatorIDs
                 };
 
                 await _context.Courses.AddAsync(course);
@@ -76,11 +83,6 @@ namespace InspireCoders.Infrastructure
             {
                 throw ex;
             }
-        }
-
-        public Task<bool> insertListAsync(List<Course> data)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task updateAsync(Course data)

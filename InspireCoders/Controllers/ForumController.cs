@@ -12,47 +12,62 @@ namespace InspireCoders.Presentation
     [ApiController]
     public class ForumController : ControllerBase
     {
-        private readonly IRepo<Forum> _repo;
+        private readonly IForumService _service;
 
-        public ForumController(IRepo<Forum> repo)
+        public ForumController(IForumService service)
         {
-            _repo = repo;
+            _service = service;
         }
 
         [HttpPost]
         public async Task<IActionResult> Post(Forum data)
         {
-            var result = await _repo.insertAsync(data);
+            var result = await _service.CreateForum(data);
             return Ok(result);
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var result = await _repo.getAllAsync();
+            var result = await _service.GetForums();
             return Ok(result);
         }
 
-        [HttpPatch]
-        public async Task<IActionResult> Patch(Forum data)
+        [HttpPatch("AddStudent")]
+        public async Task<IActionResult> AddStudent(int forumID, string StudentIDs)
         {
-            await _repo.updateAsync(data);
-            return Ok();
-
+            var result = await _service.AddStudent(forumID, StudentIDs);
+            return Ok(result);
         }
+
+        [HttpGet("ForumsByStudent/{studentID}")]
+        public async Task<IActionResult> ForumsByStudent(int studentID)
+        {
+            var result = await _service.getForumsByStudentID(studentID);
+            return Ok(result);
+        }
+
+
+        //[HttpPatch]
+        //public async Task<IActionResult> Patch(Forum data)
+        //{
+        //    await _repo.updateAsync(data);
+        //    return Ok();
+
+        //}
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
-        [HttpDelete]
-        public async Task<IActionResult> Delete(int ID)
-        {
-            await _repo.deleteAsync(ID);
-            return Ok();
+        //[HttpDelete]
+        //public async Task<IActionResult> Delete(int ID)
+        //{
+        //    await _repo.deleteAsync(ID);
+        //    return Ok();
 
-        }
+        //}
 
 
     }

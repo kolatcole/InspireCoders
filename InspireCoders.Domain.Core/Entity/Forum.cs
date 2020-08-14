@@ -26,6 +26,10 @@ namespace InspireCoders.Domain
 
         public int FacilitatorID { get; set; }
 
+        public List<Student> Students { get; set; }
+
+        public string StudentIDs { get; set; }
+
 
     }
 }

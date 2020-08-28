@@ -3,6 +3,7 @@ using InspireCoders.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,18 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task deleteAsync(int ID)
+        public async Task deleteAsync(int ID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var student = await _context.Students.FindAsync(ID);
+                _context.Students.Remove(student);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<Student>> getAllAsync()
@@ -61,6 +71,38 @@ namespace InspireCoders.Infrastructure
             catch
             {
                 return null;
+            }
+        }
+
+        public async Task<Student> getByCodeAsync(string code)
+        {
+            try
+            {
+
+                var student = await _context.Students.FirstOrDefaultAsync(x => x.Code == code);
+                return student;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Student> getByNameAsync(string name)
+        {
+            try
+            {
+
+                var student = await _context.Students.FirstOrDefaultAsync(x => x.Nickname == name);
+                return student;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 

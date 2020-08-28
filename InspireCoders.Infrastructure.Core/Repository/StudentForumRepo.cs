@@ -48,6 +48,16 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
+        public Task<StudentForum> getByCodeAsync(string code)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<StudentForum> getByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> insertAsync(StudentForum data)
         {
             try

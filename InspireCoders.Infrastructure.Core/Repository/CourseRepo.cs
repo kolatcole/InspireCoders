@@ -19,6 +19,34 @@ namespace InspireCoders.Infrastructure
             _context = context;
         }
 
+        public async Task deleteAsync(int ID)
+        {
+            try
+            {
+                var course = await _context.Courses.FindAsync(ID);
+                _context.Courses.Remove(course);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public async Task<Course> getByNameAsync(string name)
+        {
+            try
+            {
+
+                var course = await _context.Courses.FirstOrDefaultAsync(x => x.Name == name);
+                return course;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
 
         public async Task<List<Course>> getAllAsync()
@@ -95,6 +123,7 @@ namespace InspireCoders.Infrastructure
                     if (data.Code != null) course.Code = data.Code;
                     if (data.Description !=null) course.Description = data.Description;
                     if (data.Name != null) course.Name = data.Name;
+                    if (data.FacilitatorIDs != null) course.FacilitatorIDs = data.FacilitatorIDs;
                     course.DateModified = DateTime.Now;
 
                     _context.Courses.Update(course);

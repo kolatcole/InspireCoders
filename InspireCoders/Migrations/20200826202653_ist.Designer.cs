@@ -4,14 +4,16 @@ using InspireCoders.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace InspireCoders.Presentation.Core.Migrations
 {
     [DbContext(typeof(TContext))]
-    partial class TContextModelSnapshot : ModelSnapshot
+    [Migration("20200826202653_ist")]
+    partial class ist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,8 +217,8 @@ namespace InspireCoders.Presentation.Core.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("fbdfd627-af64-421e-ac1d-fc9384305a51"),
-                            DateCreated = new DateTime(2020, 8, 26, 22, 27, 19, 907, DateTimeKind.Local).AddTicks(2942),
+                            Id = new Guid("4fd92e56-84aa-4ab0-9cca-3c3706aeef1e"),
+                            DateCreated = new DateTime(2020, 8, 26, 21, 26, 51, 995, DateTimeKind.Local).AddTicks(9995),
                             DateModified = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Basic",
                             Name = "Basic Role",
@@ -381,7 +383,7 @@ namespace InspireCoders.Presentation.Core.Migrations
             modelBuilder.Entity("InspireCoders.Domain.User", b =>
                 {
                     b.HasOne("InspireCoders.Domain.Role", "Role")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("RoleId");
                 });
 #pragma warning restore 612, 618

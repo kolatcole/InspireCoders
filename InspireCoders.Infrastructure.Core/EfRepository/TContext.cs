@@ -10,8 +10,32 @@ namespace InspireCoders.Infrastructure
     {
         public TContext(DbContextOptions<TContext> options):base(options)
         {
-
+            
         }
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //var assignedPermissions = new List<PermEnums>
+            //{
+            //    PermEnums.
+            //};
+
+            //var permissions = assignedPermissions.Select(c => ((int)c).ToString()).ToList();
+            modelBuilder.Entity<Role>().HasData(
+                
+                new Role
+                {
+                    DateCreated=DateTime.Now,
+                    Description="Basic",
+                    Name="Basic Role",
+                    Permissions="",
+                    Id=Guid.NewGuid()
+                }
+                
+            );
+        }
+
         public DbSet<Student> Students { get; set; }
 
         public DbSet<Contact> Contacts { get; set; }
@@ -27,6 +51,10 @@ namespace InspireCoders.Infrastructure
         public DbSet<Course> Courses { get; set; }
 
         public DbSet<StudentForum> StudentForums { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<User> Users { get; set; }
 
 
     }

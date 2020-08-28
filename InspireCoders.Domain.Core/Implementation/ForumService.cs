@@ -35,23 +35,6 @@ namespace InspireCoders.Domain
             if(forum!=null)
             {
 
-                //string studentID = "";
-                //for (int i=0;i<studentIDs.Count;i++)
-                //{
-
-
-                //    // Do not add comma if it''s the first id
-                //    if (i==0)
-                //        studentID += studentIDs[i].ToString();
-
-                //    studentID = ",";
-                //    studentID += studentIDs[i].ToString();
-
-                //}
-
-                // save the stringified studentIDs to the forum
-
-                // save the rows for the connecing tables between forum and students
 
                 var studForum = new List<StudentForum>();
 
@@ -114,6 +97,60 @@ namespace InspireCoders.Domain
 
         }
 
+        public async Task<Forum> GetForumByName(string name)
+        {
+            var forum = await _fRepo.getByNameAsync(name);
+
+            if (forum != null)
+            {
+
+                if (!String.IsNullOrEmpty(forum.StudentIDs))
+                {
+
+                    var students = new List<Student>();
+                    foreach (var studID in forum.StudentIDs.Split(','))
+                    {
+
+                        int ID = int.Parse(studID);
+                        var student = await _sRepo.getAsync(ID);
+                        students.Add(student);
+                    }
+
+                    forum.Students = students;
+                }
+            }
+
+            return forum;
+
+        }
+
+        public async Task<Forum> GetForumByCode(string code)
+        {
+            var forum = await _fRepo.getByCodeAsync(code);
+
+            if (forum != null)
+            {
+
+                if (!String.IsNullOrEmpty(forum.StudentIDs))
+                {
+
+                    var students = new List<Student>();
+                    foreach (var studID in forum.StudentIDs.Split(','))
+                    {
+
+                        int ID = int.Parse(studID);
+                        var student = await _sRepo.getAsync(ID);
+                        students.Add(student);
+                    }
+
+                    forum.Students = students;
+                }
+            }
+
+            return forum;
+
+        }
+
         public async Task<Forum> getForumByID(int ID)
         {
             var forum = await _fRepo.getAsync(ID);
@@ -160,6 +197,16 @@ namespace InspireCoders.Domain
                 return null;
             }
 
+        }
+
+        public async Task UpdateForum(Forum data)
+        {
+            await _fRepo.updateAsync(data);
+        }
+
+        public async Task DeleteForum(int ID)
+        {
+            await _fRepo.deleteAsync(ID);
         }
     }
 }

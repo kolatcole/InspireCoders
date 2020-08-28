@@ -13,6 +13,8 @@ namespace InspireCoders.Domain
         Task deleteAsync(int ID);
         Task updateAsync(T data);
         Task<T> getAsync(int ID);
+        Task<T> getByNameAsync(string name);
+        Task<T> getByCodeAsync(string code);
         Task<List<T>> getAllAsync();
         Task<List<T>> getAllByIDAsync(int ID);
     }

@@ -15,5 +15,11 @@ namespace InspireCoders.Domain
 
         Task<Course> getCourseByID(int ID);
 
+        Task<Course> getCourseByName(string name);
+
+        Task UpdateCourse(Course data);
+
+        Task DeleteCourse(int ID);
+
     }
 }

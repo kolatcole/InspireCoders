@@ -16,5 +16,14 @@ namespace InspireCoders.Domain
         Task<Forum> getForumByID(int ID);
 
         Task<List<Forum>> getForumsByStudentID(int studentID);
+
+        Task<Forum> GetForumByCode(string code);
+
+        Task<Forum> GetForumByName(string name);
+
+        Task UpdateForum(Forum data);
+
+        Task DeleteForum(int ID);
+
     }
 }

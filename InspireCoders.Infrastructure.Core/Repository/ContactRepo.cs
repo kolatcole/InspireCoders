@@ -55,6 +55,16 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
+        public Task<Contact> getByCodeAsync(string code)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Contact> getByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> insertAsync(Contact data)
         {
             try

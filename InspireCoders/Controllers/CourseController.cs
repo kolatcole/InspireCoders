@@ -19,14 +19,17 @@ namespace InspireCoders.Presentation
             _service = service;
         }
 
-        [HttpPost]
+
+        [HasPermission(PermEnums.CreateCourse)]
+        [HttpPost("")]
         public async Task<IActionResult> Post(Course data)
         {
             var result = await _service.SaveCourseWithFacilitator(data);
             return Ok(result);
         }
 
-        [HttpGet]
+        [HasPermission(PermEnums.ReadCourse)]
+        [HttpGet("")]
         public async Task<IActionResult> Get()
         {
             var result = await _service.getAllCourses();
@@ -38,30 +41,42 @@ namespace InspireCoders.Presentation
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        [HttpGet("GetByCourse/{code}")]
-        public async Task<IActionResult> GetByCourse(string code)
+        [HasPermission(PermEnums.ReadCourse)]
+        [HttpGet("{code}")]
+        public async Task<IActionResult> Get(string code)
         {
             var result = await _service.getCourseByCode(code);
             return Ok(result);
         }
 
-        //[HttpPatch]
-        //public async Task<IActionResult> Patch(Applicant data)
-        //{
-        //    await _repo.updateAsync(data);
-        //    return Ok();
+        [HasPermission(PermEnums.ReadCourse)]
+        [HttpGet("GetByName/{name}")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            var result = await _service.getCourseByName(name);
+            return Ok(result);
+        }
 
-        //}
+
+        [HasPermission(PermEnums.UpdateCourse)]
+        [HttpPatch]
+        public async Task<IActionResult> Patch(Course data)
+        {
+            await _service.UpdateCourse(data);
+            return Ok();
+
+        }
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="ID"></param>
         /// <returns></returns>
+        [HasPermission(PermEnums.DeleteCourse)]
         [HttpDelete]
         public async Task<IActionResult> Delete(int ID)
         {
-            // await _repo.deleteAsync(ID);
+            await _service.DeleteCourse(ID);
             return Ok();
 
         }

@@ -66,6 +66,27 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
+        public async Task<Applicant> getByCodeAsync(string code)
+        {
+            try
+            {
+
+                var applicant = await _context.Applicants.FirstOrDefaultAsync(x => x.Email == code);
+                return applicant;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Task<Applicant> getByNameAsync(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> insertAsync(Applicant data)
         {
             try

@@ -19,6 +19,7 @@ namespace InspireCoders.Presentation
             _service = service;
         }
 
+        [HasPermission(PermEnums.CreateForum)]
         [HttpPost]
         public async Task<IActionResult> Post(Forum data)
         {
@@ -26,6 +27,7 @@ namespace InspireCoders.Presentation
             return Ok(result);
         }
 
+        [HasPermission(PermEnums.ReadForum)]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -33,6 +35,7 @@ namespace InspireCoders.Presentation
             return Ok(result);
         }
 
+        [HasPermission(PermEnums.CreateStudent)]
         [HttpPatch("AddStudent")]
         public async Task<IActionResult> AddStudent(int forumID, string StudentIDs)
         {
@@ -40,7 +43,8 @@ namespace InspireCoders.Presentation
             return Ok(result);
         }
 
-        [HttpGet("ForumsByStudent/{studentID}")]
+        [HasPermission(PermEnums.ReadForum)]
+        [HttpGet("{studentID}")]
         public async Task<IActionResult> ForumsByStudent(int studentID)
         {
             var result = await _service.getForumsByStudentID(studentID);
@@ -48,26 +52,37 @@ namespace InspireCoders.Presentation
         }
 
 
-        //[HttpPatch]
-        //public async Task<IActionResult> Patch(Forum data)
-        //{
-        //    await _repo.updateAsync(data);
-        //    return Ok();
+        [HasPermission(PermEnums.ReadForum)]
+        [HttpGet("{code}")]
+        public async Task<IActionResult> Get(string code)
+        {
+            var result = await _service.GetForumByCode(code);
+            return Ok(result);
+        }
 
-        //}
+        [HasPermission(PermEnums.ReadForum)]
+        [HttpGet("GetByName/{name}")]
+        public async Task<IActionResult> GetByName(string name)
+        {
+            var result = await _service.GetForumByName(name);
+            return Ok(result);
+        }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="ID"></param>
-        /// <returns></returns>
-        //[HttpDelete]
-        //public async Task<IActionResult> Delete(int ID)
-        //{
-        //    await _repo.deleteAsync(ID);
-        //    return Ok();
+        [HasPermission(PermEnums.UpdateForum)]
+        [HttpPatch]
+        public async Task<IActionResult> Patch(Forum data)
+        {
+            await _service.UpdateForum(data);
+            return Ok();
+        }
 
-        //}
+        [HasPermission(PermEnums.DeleteForum)]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int ID)
+        {
+            await _service.DeleteForum(ID);
+            return Ok();
+        }
 
 
     }

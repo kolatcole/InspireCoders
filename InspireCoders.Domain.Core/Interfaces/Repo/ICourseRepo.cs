@@ -16,5 +16,9 @@ namespace InspireCoders.Domain
         Task<int> insertAsync(Course data);
         
         Task updateAsync(Course data);
+
+        Task deleteAsync(int ID);
+
+        Task<Course> getByNameAsync(string name);
     }
 }

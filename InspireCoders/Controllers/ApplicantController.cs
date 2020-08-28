@@ -26,6 +26,7 @@ namespace InspireCoders.Presentation
             return Ok(result);
         }
 
+        [HasPermission(PermEnums.ReadApplicant)]
         [HttpGet]
         public async Task<IActionResult> Get()
         {
@@ -33,14 +34,15 @@ namespace InspireCoders.Presentation
             return Ok(result);
         }
 
-        //[HttpPatch]
-        //public async Task<IActionResult> Patch(Applicant data)
-        //{
-        //    await _repo.updateAsync(data);
-        //    return Ok();
+        [HasPermission(PermEnums.ReadApplicant)]
+        [HttpGet("{email}")]
+        public async Task<IActionResult> Get(string email)
+        {
+            var result=await _repo.getByCodeAsync(email);
+            return Ok(result);
+        }
 
-        //}
-
+        
         /// <summary>
         /// 
         /// </summary>

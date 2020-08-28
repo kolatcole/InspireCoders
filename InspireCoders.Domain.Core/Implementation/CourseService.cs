@@ -99,5 +99,37 @@ namespace InspireCoders.Domain
             return course;
         }
 
+        public async Task<Course> getCourseByName(string name)
+        {
+            var course = await _cRepo.getByNameAsync(name);
+
+            if (!String.IsNullOrEmpty(course.FacilitatorIDs))
+            {
+
+                var facilitators = new List<Facilitator>();
+                foreach (var facID in course.FacilitatorIDs.Split(','))
+                {
+                    int ID = int.Parse(facID);
+                    var facilitator = await _fRepo.getAsync(ID);
+                    facilitators.Add(facilitator);
+                }
+
+                course.Facilitators = facilitators;
+            }
+
+            return course;
+
+        }
+
+        public async Task UpdateCourse(Course data)
+        {
+            await _cRepo.updateAsync(data);
+        }
+
+        public async Task DeleteCourse(int ID)
+        {
+            await _cRepo.deleteAsync(ID);
+        }
+
     }
 }

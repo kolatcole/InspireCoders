@@ -38,6 +38,38 @@ namespace InspireCoders.Infrastructure
             }
         }
 
+        public async Task<Forum> getByCodeAsync(string code)
+        {
+            try
+            {
+
+                var forum = await _context.Forums.FirstOrDefaultAsync(x => x.Code == code);
+                return forum;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Forum> getByNameAsync(string name)
+        {
+            try
+            {
+
+                var forum = await _context.Forums.FirstOrDefaultAsync(x => x.Name == name);
+                return forum;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<List<Forum>> getAllAsync()
         {
             try

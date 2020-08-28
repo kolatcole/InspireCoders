@@ -23,9 +23,18 @@ namespace InspireCoders.Infrastructure
             throw new NotImplementedException();
         }
 
-        public Task deleteAsync(int ID)
+        public async Task deleteAsync(int ID)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var facilitator = await _context.Facilitators.FindAsync(ID);
+                _context.Facilitators.Remove(facilitator);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<Facilitator>> getAllAsync()
@@ -62,6 +71,38 @@ namespace InspireCoders.Infrastructure
             catch
             {
                 return null;
+            }
+        }
+
+        public async Task<Facilitator> getByCodeAsync(string code)
+        {
+            try
+            {
+
+                var facilitator = await _context.Facilitators.FirstOrDefaultAsync(x => x.Code == code);
+                return facilitator;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Facilitator> getByNameAsync(string name)
+        {
+            try
+            {
+
+                var facilitator = await _context.Facilitators.FirstOrDefaultAsync(x => x.Nickname == name);
+                return facilitator;
+
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
